@@ -1,0 +1,29 @@
+from graphviz import Digraph
+
+# Create a directed graph
+process_flow = Digraph(name="Student_Admission_Process", format="png")
+
+# Define nodes for each process step
+process_flow.node("1", "Collect Application Form", shape="ellipse")
+process_flow.node("2", "Fill Out Form with Required Details", shape="ellipse")
+process_flow.node("3", "Attach Necessary Documents", shape="ellipse")
+process_flow.node("4", "Submit Form to College Office", shape="ellipse")
+process_flow.node("5", "Receive Acknowledgment Receipt", shape="ellipse")
+process_flow.node("6", "Await Decision Notification", shape="ellipse")
+
+# Connect the nodes to form the process flow
+process_flow.edge("1", "2", label="Student Action")
+process_flow.edge("2", "3", label="Ensure Details are Accurate")
+process_flow.edge("3", "4", label="Complete and Attach Documents")
+process_flow.edge("4", "5", label="Submit for Verification")
+process_flow.edge("5", "6", label="Acknowledgment Received")
+
+# Generate the DOT representation as a fallback due to the rendering limitation
+graph_dot = process_flow.source
+
+# Output the DOT representation to a file for manual rendering
+output_file_path = "/mnt/data/student_admission_process_flow.dot"
+with open(output_file_path, "w") as file:
+    file.write(graph_dot)
+
+print(f"DOT source saved to {output_file_path}. Use this with an external Graphviz renderer.")
