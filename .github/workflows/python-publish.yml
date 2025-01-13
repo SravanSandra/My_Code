@@ -1,0 +1,37 @@
+name: Python Application CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.13
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install graphviz
+
+    - name: Test Graphviz script
+      run: |
+        python student_admission_flow.py
+
+    - name: Save output files
+      uses: actions/upload-artifact@v3
+      with:
+        name: graphviz-output
+        path: /mnt/data/student_admission_process_flow.dot
